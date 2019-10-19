@@ -17,6 +17,7 @@ from django.contrib import admin, auth
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
+from django.views.generic import RedirectView
 from . import views
 
 urlpatterns = [
@@ -24,4 +25,5 @@ urlpatterns = [
  	path('', views.home, name='home'),
     path('admin/', admin.site.urls), 
     path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/profile/', RedirectView.as_view(url="/sucesso/"), name="profile"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -6,7 +6,9 @@
         <div class="row">
             <h1 class="col">Top Apoiadores!</h1>
             <form class="col">
+                <span>Pesquise os top doadores em sua região!</span>
                 <div class="form-row">
+                    <br>
                     <input type="text" placeholder="estado" class="form-control col" name="endereco__estado"/>
                     <input type="text" placeholder="cidade" class="form-control col" name="endereco__cidade"/>
                     <input type="text" placeholder="bairro" class="form-control col" name="endereco__bairro"/>
@@ -22,9 +24,11 @@
             </thead>
             <tbody>
                 {% for apoiador in ranking %}
-                    <td>{{ forloop.counter }}</td>
-                    <td>{{apoiador}}</td>
-                    <td>{{apoiador.calc_pontuacao}}</td>
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{apoiador}}</td>
+                        <td>{{apoiador.calc_pontuacao}}</td>
+                    </tr>
                 {% endfor %}
             </tbody>
         </table>

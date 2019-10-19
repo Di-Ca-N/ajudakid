@@ -4,16 +4,17 @@
 	<section class="page hire-me-page">
         <div class="portfolio-block hire-me">
             <div class="container">
+                {{form.errors}}
                 <div class="heading">
                     <h2>Login</h2>
                 </div>
                 <form method="post">
                 	{% csrf_token %}
                 	<label for='username'>Username</label>
-                	<input class="form-control" type="text" name='userame' id="id_username">
+                	<input class="form-control" type="text" name='username' id="id_username">
 
                     <label>Senha</label>
-                    <input class="form-control input_senha" type="password" id="id_password">
+                    <input class="form-control input_senha" type="password" name="password" id="id_password">
                     <div class="form-group my-4">
 						<button class="btn btn-primary btn-block " type="submit">Entrar</button>
                     </div>
