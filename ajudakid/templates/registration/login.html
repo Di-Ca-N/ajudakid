@@ -1,9 +1,24 @@
 {% extends 'ajudakid/base.html' %}
-
+{% load static %}
 {% block content %}
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Login</button>
-    </form>
+	<section class="page hire-me-page">
+        <div class="portfolio-block hire-me">
+            <div class="container">
+                <div class="heading">
+                    <h2>Login</h2>
+                </div>
+                <form method="post">
+                	{% csrf_token %}
+                	<label for='username'>Username</label>
+                	<input class="form-control" type="text" name='userame' id="id_username">
+
+                    <label>Senha</label>
+                    <input class="form-control input_senha" type="password" id="id_password">
+                    <div class="form-group my-4">
+						<button class="btn btn-primary btn-block " type="submit">Entrar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
 {% endblock content %}

@@ -1,7 +1,30 @@
 {% extends 'ajudakid/base.html' %}
 
 {% block content %}
-    {% for apoiador in ranking %}
-        {{apoiador}} - {{apoiador.calc_pontuacao}}
-    {% endfor %}
+
+<section class="portfolio-block projects compact-grid">
+            <div class="heading">
+                <h2>ranking</h2>
+            </div>
+            <div class="container">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Posição</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for apoiador in ranking %}
+                            <tr>
+                                <td>{{ apoiador }}</td>
+                                <td>{{ apoiador.calc_pontuacao }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
 {% endblock content %}
