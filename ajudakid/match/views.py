@@ -5,7 +5,7 @@ from django.contrib.auth import login
 
 from django.contrib.auth.decorators import login_required, user_passes_test
 
-from .forms import EntidadeForm, ApoiadorForm, EnderecoForm, AcaoApoiadorForm
+from .forms import EntidadeForm, ApoiadorForm, EnderecoForm, AcaoApoiadorForm, MyUserCreationForm
 from .models import Apoiador, Entidade
 
 
@@ -28,13 +28,13 @@ def ranking(request):
 
 def cadastrar(request):
 	if request.method == 'POST':
-		form = UserCreationForm(request.POST)
+		form = MyUserCreationForm(request.POST)
 		if form.is_valid():
 			user = form.save()
 			login(request, user)
 			return redirect('match:sucesso_cadastro')
 	else:
-		form = UserCreationForm()
+		form = MyUserCreationForm()
 	
 	return render(request, 'match/cadastrar.html', {'forms': [form]})
 
