@@ -1,13 +1,91 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-	<meta charset="UTF-8">
-	<title>Document</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Home - Brand</title>
+    <link rel="icon" type="image/jpeg" sizes="800x800" href="{% static 'ajudakid/img/avatars/avatar.jpg' %}">
+    <link rel="stylesheet" href="{% static 'ajudakid/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700">
+    <link rel="stylesheet" href="{% static 'ajudakid/fonts/ionicons.min.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/css/pikaday.min.css">
+    <link rel="stylesheet" href="{% static 'ajudakid/css/styles.min.css' %}">
 </head>
+
 <body>
-	oiii
-	{% block content %}
-		<p>lalalalal</p>
-	{% endblock content %}
+    <!-- Navbar -->
+    <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-white portfolio-navbar gradient">
+        <div class="container"><img class="logotipo" src="{% static 'ajudakid/img/logo%201.png' %}"><a class="navbar-brand logo" href="{% url 'home' %}">AjudaKid</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navbarNav"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="nav navbar-nav ml-auto">
+                    <li class="nav-item" role="presentation"><a class="nav-link active links" href="{% url 'home' %}">Home</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link active links" href="{% url 'match:cadastro' %}">Cadastro</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link links" href="{% url 'match:quem_somos' %}">Quem Somos</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link links" href="{% url 'match:entidades' %}">Entidades</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link links" href="{% url 'match:ranking' %}">Ranking</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link active" href="#" style="font-size: 19.2px;">Login</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="page lanidng-page">
+    	{% block content %}
+        <section class="portfolio-block block-intro"><img src="{% static 'ajudakid/img/logo%201.png' %}">
+            <div class="container" style="/*background-color: red;*/">
+                <div class="about-me">
+                    <p>Olá! Seja bem vindo ao AjudaKid!</p><a class="btn btn-outline-primary" role="button" href="#">Como posso doar?</a></div>
+            </div>
+        </section>
+        <section class="portfolio-block photography">
+            <div class="container">
+                <div class="row no-gutters">
+                    <div class="col-md-6 col-lg-4 item zoom-on-hover"><a href="#"></a></div>
+                </div>
+            </div>
+        </section>
+        <section class="portfolio-block call-to-action border-bottom border-top">
+            <div class="container">
+                <div class="d-flex justify-content-center align-items-center content">
+                    <h3>AjudaKid, tem como objetivo motivar pessoas para se tornarem apoiadores de crianças carentes. A partir disso, destinamos valores doados e/ou trabalhos voluntários a comunidades com maiores indicativos de crianças carentes.&nbsp;</h3>
+                </div>
+            </div>
+        </section>
+        <section class="portfolio-block skills"></section>
+
+        {% endblock content %}
+
+    </main>
+    <section class="portfolio-block website gradient">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-12 col-lg-5 offset-lg-1 text">
+                    <h3>&nbsp;Projeto Site Web</h3>
+                    <p>O site do AjudaKid, foi desenvolvido por discentes do Instituto Federal de Educação, Ciência e &nbsp;Tecnologia do Rio Grande do Sul Campus Vacaria, &nbsp;para o evento &nbsp;Hackaton 2019 - Sapucaia/RS</p>
+                </div>
+                <div class="col-md-12 col-lg-5">
+                    <div class="portfolio-laptop-mockup">
+                        <div class="screen">
+                            <div class="screen-content" style="background-image:url(&quot;{% static 'ajudakid/img/tech/image6.png' %}&quot;);"></div>
+                        </div>
+                        <div class="keyboard"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="page-footer">
+        <div class="container">
+            <div class="links"><a href="#">Quem Somos</a><a href="#">Cadastro</a><a href="#">Doar</a></div>
+            <div class="social-icons"></div>
+        </div>
+    </footer>
+    <script src="{% static 'ajudakid/js/jquery.min.js' %}"></script>
+    <script src="{% static 'ajudakid/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/pikaday.min.js"></script>
+    <script src="{% static 'ajudakid/js/script.min.js' %}"></script>
 </body>
+
 </html>

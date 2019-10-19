@@ -14,10 +14,12 @@ from .models import Apoiador
 from models import Entidade, Apoiador
 
 def quem_somos(request):
+	context = {}
 	return render(request, 'match/quem_somos.html', context)
 
 def entidades(request):
-	return HttpResponse("Olá")
+	context = {}
+	return render(request, 'match/entidades.html', context)
 
 def ranking(request):
 	rank = Apoiador.objects.all()
@@ -25,6 +27,7 @@ def ranking(request):
 		if request.GET.get(filter_field):
 			rank = rank.filter(**{filter_field: request.GET.get(filter_field)})
 	return render(request, 'match/rank.html', {'rank': rank})
+
 
 def cadastrar(request):
 	if request.method == 'POST':
