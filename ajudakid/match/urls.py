@@ -12,4 +12,5 @@ urlpatterns = [
 	path('cadastrar/apoiador/', views.cadastrar_apoiador, name='cadastro_apoiador'),
 	path('cadastrar/acao/', views.cadastrar_acao, name='cadastro_acao'),
 	path('sucesso/', views.sucesso_cadastro, name='sucesso_cadastro'),
+	path('perfil/<int:perfil_id>/', views.view_perfil, name='parfil'),
 ]
