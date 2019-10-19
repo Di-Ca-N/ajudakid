@@ -5,7 +5,7 @@ from django.contrib.auth import login
 from django.contrib.auth.decorators import user_passes_test
 
 from .forms import EntidadeForm, ApoiadorForm, EnderecoForm, AcaoApoiadorForm
-from .models import *
+from .models import Apoiador
 
 def quem_somos(request):
 	return render(request, 'match/quem_somos.html', context)
@@ -14,8 +14,11 @@ def entidades(request):
 	return HttpResponse("Olá")
 
 def ranking(request):
-	
-	return HttpResponse("Olá")
+	rank = Apoiador.objects.all()
+	for filter_field in ('pais', 'estado', 'cidade', 'bairro'):
+		if request.GET.get(filter_field):
+			rank = rank.filter(**{filter_field: request.GET.get(filter_field)})
+	return render(request, 'match/rank.html', {'rank': rank})
 
 def cadastrar(request):
 	if request.method == 'POST':

@@ -12,3 +12,9 @@ class AcaoApoiador(models.Model):
 	valor = models.IntegerField(help_text="Valor doado ou horas trabalhadas")
 	apoiador = models.ForeignKey(Apoiador, on_delete=models.CASCADE, related_name="acoes")
 	entidade = models.ForeignKey(Entidade, on_delete=models.CASCADE, related_name="acoes")
+
+	def get_pontuacao(self):
+		if self.tipo == 'd':
+			return self.valor
+		else:
+			return 8 * self.valor

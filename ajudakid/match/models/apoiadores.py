@@ -21,5 +21,6 @@ class Apoiador(models.Model):
 		return self.nome
 
 	def calc_pontuacao(self):
-		self.pontos = sum([action.get_pontuacao() for action in self.acoes])
+		self.pontos = sum([action.get_pontuacao() for action in self.acoes.all()])
 		self.save()
+		return self.pontos
