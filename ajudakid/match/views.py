@@ -51,7 +51,7 @@ def cadastrar_entidades(request):
 			entidade.endereco = endereco
 			entidade.save()
 
-			return redirect('match:sucesso_cadastro')
+			return redirect('match:perfil')
 	else:
 		form = EntidadeForm()
 		endereco_form = EnderecoForm()
@@ -71,7 +71,7 @@ def cadastrar_apoiador(request):
 			apoiador.endereco = endereco
 
 			apoiador.save()
-			return redirect('match:sucesso_cadastro')
+			return redirect('match:perfil')
 
 	else:
 		form = ApoiadorForm()
@@ -91,7 +91,7 @@ def cadastrar_acao(request):
 			acao = form.save(commit=False)
 			acao.entidade = request.user
 			acao.save()
-			return render(request, 'match/sucesso.html')
+			return redirect('match/perfil')
 	else:
 		form = AcaoApoiadorForm()
 	return render(request, 'match/cadastrar.html', {'forms': [form]})
