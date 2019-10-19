@@ -77,9 +77,9 @@ WSGI_APPLICATION = 'ajudakid.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'hackatom',
-        'USER': 'aluno',
-        'PASSWORD': 'ifrsvacaria',
+        'NAME': 'hackathom',
+        'USER': 'eduardo',
+        'PASSWORD': '3382736',
         'HOST': 'localhost',
         'PORT': '3306',
     }
