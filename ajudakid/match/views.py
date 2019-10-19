@@ -20,7 +20,7 @@ def ranking(request):
 	for filter_field in ('pais', 'estado', 'cidade', 'bairro'):
 		if request.GET.get(filter_field):
 			rank = rank.filter(**{filter_field: request.GET.get(filter_field)})
-	return render(request, 'match/rank.html', {'rank': rank})
+	return render(request, 'match/ranking.html', {'ranking': rank})
 
 
 def cadastrar(request):

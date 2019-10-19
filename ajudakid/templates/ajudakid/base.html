@@ -25,13 +25,15 @@
                     <li class="nav-item" role="presentation"><a class="nav-link links" href="{% url 'match:quem_somos' %}">Quem Somos</a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link links" href="{% url 'match:entidades' %}">Entidades</a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link links" href="{% url 'match:ranking' %}">Ranking</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link active" href="#" style="font-size: 19.2px;">Login</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link active" href="{% url 'login' %}" style="font-size: 19.2px;">Login</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
     <main class="page lanidng-page">
+        
+        <!-- Conteúdo dinâmico -->
     	{% block content %}
         <section class="portfolio-block block-intro"><img src="{% static 'ajudakid/img/logo%201.png' %}">
             <div class="container" style="/*background-color: red;*/">
