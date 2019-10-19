@@ -15,4 +15,12 @@ class Apoiador(models.Model):
 	)
 	registro = models.CharField(max_length=13, help_text='CPF, se pessoa física. CNPJ, se jurídica')
 	endereco = models.OneToOneField(Endereco, on_delete=models.CASCADE)
-	pontos = models.IntegerField()
+	pontos = models.IntegerField(default=0)
+
+	def __str__(self):
+		return self.nome
+
+	def calc_pontuacao(self):
+		self.pontos = sum([action.get_pontuacao() for action in self.acoes.all()])
+		self.save()
+		return self.pontos

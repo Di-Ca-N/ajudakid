@@ -2,9 +2,14 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
+<<<<<<< HEAD
 from django.contrib.auth.decorators import login_required
+=======
+from django.contrib.auth.decorators import user_passes_test
+>>>>>>> e1409df745bc2db6cd8f7f7894ee8c6adb09e97d
 
-from .forms import EntidadeForm, ApoiadorForm, EnderecoForm
+from .forms import EntidadeForm, ApoiadorForm, EnderecoForm, AcaoApoiadorForm
+from .models import Apoiador
 
 from models import Entidade, Apoiador
 
@@ -15,7 +20,11 @@ def entidades(request):
 	return HttpResponse("Olá")
 
 def ranking(request):
-	return HttpResponse("Olá")
+	rank = Apoiador.objects.all()
+	for filter_field in ('pais', 'estado', 'cidade', 'bairro'):
+		if request.GET.get(filter_field):
+			rank = rank.filter(**{filter_field: request.GET.get(filter_field)})
+	return render(request, 'match/rank.html', {'rank': rank})
 
 def cadastrar(request):
 	if request.method == 'POST':
@@ -72,8 +81,19 @@ def cadastrar_apoiador(request):
 def sucesso_cadastro(request):
 	return HttpResponse("Olá")
 
+
+@user_passes_test(lambda user: hasattr(user, 'entidade'))
 def cadastrar_acao(request):
-	return HttpResponse("None")
+	if request.method == 'POST':
+		form = AcaoApoiadorForm(request.POST)
+		if form.is_valid():
+			acao = form.save(commit=False)
+			acao.entidade = request.user
+			acao.save()
+			return render(request, 'match/sucesso.html')
+	else:
+		form = AcaoApoiadorForm()
+	return render(request, 'match/cadastrar.html', {'forms': [form]})
 
 @login_required
 def relacionar(request):
@@ -113,3 +133,4 @@ def relacionar(request):
 					relacionados.append(y)
 
 	return relacionados
+
