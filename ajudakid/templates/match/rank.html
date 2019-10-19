@@ -1,0 +1,7 @@
+{% extends 'ajudakid/base.html' %}
+
+{% block content %}
+    {% for apoiador in rank %}
+        {{apoiador}} - {{apoiador.calc_pontuacao}}
+    {% endfor %}
+{% endblock content %}

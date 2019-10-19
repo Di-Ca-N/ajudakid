@@ -2,8 +2,10 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
+from django.contrib.auth.decorators import user_passes_test
 
-from .forms import EntidadeForm, ApoiadorForm, EnderecoForm
+from .forms import EntidadeForm, ApoiadorForm, EnderecoForm, AcaoApoiadorForm
+from .models import Apoiador
 
 def quem_somos(request):
 	context = {}
@@ -14,8 +16,12 @@ def entidades(request):
 	return render(request, 'match/entidades.html', context)
 
 def ranking(request):
-	context = {}
-	return render(request, 'match/ranking.html', context)
+	rank = Apoiador.objects.all()
+	for filter_field in ('pais', 'estado', 'cidade', 'bairro'):
+		if request.GET.get(filter_field):
+			rank = rank.filter(**{filter_field: request.GET.get(filter_field)})
+	return render(request, 'match/rank.html', {'rank': rank})
+
 
 def cadastrar(request):
 	if request.method == 'POST':
@@ -72,5 +78,16 @@ def cadastrar_apoiador(request):
 def sucesso_cadastro(request):
 	return HttpResponse("Olá")
 
+
+@user_passes_test(lambda user: hasattr(user, 'entidade'))
 def cadastrar_acao(request):
-	return HttpResponse("None")
+	if request.method == 'POST':
+		form = AcaoApoiadorForm(request.POST)
+		if form.is_valid():
+			acao = form.save(commit=False)
+			acao.entidade = request.user
+			acao.save()
+			return render(request, 'match/sucesso.html')
+	else:
+		form = AcaoApoiadorForm()
+	return render(request, 'match/cadastrar.html', {'forms': [form]})

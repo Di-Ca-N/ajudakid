@@ -5,5 +5,4 @@ from .models import *
 admin.site.register(Apoiador)
 admin.site.register(Entidade)
 admin.site.register(Badge)
-admin.site.register(Acao)
 admin.site.register(AcaoApoiador)
