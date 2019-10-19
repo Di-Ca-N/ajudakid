@@ -77,9 +77,9 @@ WSGI_APPLICATION = 'ajudakid.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'hackathom',
-        'USER': 'eduardo',
-        'PASSWORD': '3382736',
+        'NAME': 'hackatom',
+        'USER': 'aluno',
+        'PASSWORD': 'ifrsvacaria',
         'HOST': 'localhost',
         'PORT': '3306',
     }
@@ -108,7 +108,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'pt-br'
 
 TIME_ZONE = 'UTC'
 

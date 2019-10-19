@@ -1,0 +1,11 @@
+{% extends 'ajudakid/base.html' %}
+
+{% block content %}
+	<form method="POST">
+		{% csrf_token %}
+		{% for form in forms %}
+			{{form.as_p}}
+		{% endfor %}
+		<button>Enviar</button>
+	</form>
+{% endblock content %}
