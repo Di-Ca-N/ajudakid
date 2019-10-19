@@ -2,11 +2,8 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
-<<<<<<< HEAD
-from django.contrib.auth.decorators import login_required
-=======
-from django.contrib.auth.decorators import user_passes_test
->>>>>>> e1409df745bc2db6cd8f7f7894ee8c6adb09e97d
+
+from django.contrib.auth.decorators import login_required, user_passes_test
 
 from .forms import EntidadeForm, ApoiadorForm, EnderecoForm, AcaoApoiadorForm
 from .models import Apoiador
