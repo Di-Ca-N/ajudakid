@@ -6,13 +6,16 @@ from django.contrib.auth import login
 from .forms import EntidadeForm, ApoiadorForm, EnderecoForm
 
 def quem_somos(request):
+	context = {}
 	return render(request, 'match/quem_somos.html', context)
 
 def entidades(request):
-	return HttpResponse("Olá")
+	context = {}
+	return render(request, 'match/entidades.html', context)
 
 def ranking(request):
-	return HttpResponse("Olá")
+	context = {}
+	return render(request, 'match/ranking.html', context)
 
 def cadastrar(request):
 	if request.method == 'POST':
