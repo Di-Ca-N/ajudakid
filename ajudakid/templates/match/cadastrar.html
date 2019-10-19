@@ -4,8 +4,13 @@
 	<form method="POST">
 		{% csrf_token %}
 		{% for form in forms %}
-			{{form.as_p}}
+			{% for label in form %}
+			<div class="form-group">
+			    {{label.label_tag}}
+				{{label}}
+			 </div>
+			{% endfor %}
 		{% endfor %}
-		<button>Enviar</button>
+		<button type="submit" class="btn btn-primary">Enviar</button>
 	</form>
 {% endblock content %}
