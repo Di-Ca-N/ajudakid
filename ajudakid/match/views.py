@@ -2,10 +2,12 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
-from django.contrib.auth.decorators import user_passes_test
+
+from django.contrib.auth.decorators import login_required, user_passes_test
 
 from .forms import EntidadeForm, ApoiadorForm, EnderecoForm, AcaoApoiadorForm
-from .models import Apoiador
+from .models import Apoiador, Entidade
+
 
 def quem_somos(request):
 	context = {}
@@ -20,7 +22,7 @@ def ranking(request):
 	for filter_field in ('pais', 'estado', 'cidade', 'bairro'):
 		if request.GET.get(filter_field):
 			rank = rank.filter(**{filter_field: request.GET.get(filter_field)})
-	return render(request, 'match/rank.html', {'rank': rank})
+	return render(request, 'match/ranking.html', {'ranking': rank})
 
 
 def cadastrar(request):
@@ -93,6 +95,47 @@ def cadastrar_acao(request):
 		form = AcaoApoiadorForm()
 	return render(request, 'match/cadastrar.html', {'forms': [form]})
 
+
 def view_perfil(request, perfil_id):
 	perfil = Apoiador.objects.get(id=perfil_id)
 	return render(request, 'match/perfil.html', {'perfil': perfil})
+
+@login_required
+def relacionar(request):
+	try:
+		registro = request.user.cnpj
+
+		apoiadores = listApoidaor.object.all()
+		interesses = request.user.interesses
+
+		relacionados = []
+
+		geral = ""
+		for x in interesses:
+			geral += x.tags
+
+		for y in apoiadores:
+			interesse = y.interesses.tags.split(';')
+			for z in interesse:
+				if z in geral:
+					relacionados.append(y)
+
+	except:
+		entidades = Entidade.object.all()
+
+		interesses = request.user.interesses
+
+		relacionados = []
+
+		geral = ""
+		for x in interesses:
+			geral += x.tags
+
+		for y in entidades:
+			interesse = y.interesses.tags.split(';')
+			for z in interesse:
+				if z in geral:
+					relacionados.append(y)
+
+	return relacionados
+
