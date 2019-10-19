@@ -54,6 +54,7 @@ def cadastrar_entidades(request):
 		endereco_form = EnderecoForm()
 	return render(request, 'match/cadastrar.html', {'forms': [form, endereco_form]})
 
+
 def cadastrar_apoiador(request):
 	if request.method == 'POST':
 		form = ApoiadorForm(request.POST)
@@ -91,3 +92,7 @@ def cadastrar_acao(request):
 	else:
 		form = AcaoApoiadorForm()
 	return render(request, 'match/cadastrar.html', {'forms': [form]})
+
+def view_perfil(request, perfil_id):
+	perfil = Apoiador.objects.get(id=perfil_id)
+	return render(request, 'match/perfil.html', {'perfil': perfil})
