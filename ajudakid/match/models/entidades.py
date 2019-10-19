@@ -1,4 +1,5 @@
 from django.db import models
+from .enderecos import Endereco
 from django.contrib.auth.models import User 
 
 class Entidade(models.Model):
@@ -7,4 +8,4 @@ class Entidade(models.Model):
 	username = models.CharField(max_length=50)
 	email = models.EmailField()
 	cnpj = models.CharField(max_length=13)
-	endereco = models.CharField(max_length=90)
+	endereco = models.OneToOneField(Endereco, on_delete=models.CASCADE)

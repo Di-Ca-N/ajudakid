@@ -3,16 +3,17 @@ from .models.entidades import Entidade
 from .models.apoiadores import Apoiador
 from django.contrib.auth.models import User
 
+
 class EntidadeForm(forms.ModelForm):
-	username = forms.CharField()
-	endereco = 
-	cnpj = 
+	username = forms.CharField(widget=forms.TextInput(attrs={'class':''}))
+	endereco = forms.CharField()
+	cnpj = forms.CharField()
 
 	class Meta:
 		model = Entidade
 		widgets = {
 			'nome': forms.TextInput(attrs={'class':''}),
-			'username': forms.TextInput(attrs={'class':''}),
+			'username': ,
 			'email': forms.EmailInput(attrs={'class':''}),
 			'endereco': forms.TextInput(attrs={'class':''}),
 			'cnpj': forms.TextInput(attrs={'class':''}),
