@@ -1,7 +1,33 @@
 {% extends 'ajudakid/base.html' %}
 
 {% block content %}
-    {% for apoiador in ranking %}
-        {{apoiador}} - {{apoiador.calc_pontuacao}}
-    {% endfor %}
+    <div class="portfolio-block">
+        <div class="container">
+        <div class="row">
+            <h1 class="col">Top Apoiadores!</h1>
+            <form class="col">
+                <div class="form-row">
+                    <input type="text" placeholder="estado" class="form-control col" name="endereco__estado"/>
+                    <input type="text" placeholder="cidade" class="form-control col" name="endereco__cidade"/>
+                    <input type="text" placeholder="bairro" class="form-control col" name="endereco__bairro"/>
+                    <button class="btn btn-info">Filtrar</button>
+                </div>
+            </form>
+        </div>
+        <table class="table">
+            <thead>
+                <th scope="col">#</th>
+                <th scope="col">Apoiador</th>
+                <th scope="col">Pontuação</th>
+            </thead>
+            <tbody>
+                {% for apoiador in ranking %}
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{apoiador}}</td>
+                    <td>{{apoiador.calc_pontuacao}}</td>
+                {% endfor %}
+            </tbody>
+        </table>
+        </div>
+    </div>
 {% endblock content %}

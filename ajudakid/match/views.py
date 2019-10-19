@@ -17,9 +17,10 @@ def entidades(request):
 	context = {}
 	return render(request, 'match/entidades.html', context)
 
+
 def ranking(request):
-	rank = Apoiador.objects.all()
-	for filter_field in ('pais', 'estado', 'cidade', 'bairro'):
+	rank = Apoiador.objects.order_by('-pontos')
+	for filter_field in ('endereco__estado', 'endereco__cidade', 'endereco__bairro'):
 		if request.GET.get(filter_field):
 			rank = rank.filter(**{filter_field: request.GET.get(filter_field)})
 	return render(request, 'match/ranking.html', {'ranking': rank})
@@ -96,46 +97,42 @@ def cadastrar_acao(request):
 	return render(request, 'match/cadastrar.html', {'forms': [form]})
 
 
-def view_perfil(request, perfil_id):
-	perfil = Apoiador.objects.get(id=perfil_id)
-	return render(request, 'match/perfil.html', {'perfil': perfil})
+@login_required
+def view_perfil(request, tipo, perfil_id):
+	if tipo == 'apoiador':
+		perfil = Apoiador.objects.get(id=perfil_id)
+		parceiros = Entidade.objects.filter(interesses__in=perfil.interesses.all())
+		instituicoes_apoiadas = Entidade.objects.filter(id__in=perfil.acoes.values('entidade'))
+
+	else:
+		perfil = Entidade.objects.get(id=perfil_id)
+		parceiros = Apoiador.objects.filter(interesses__in=perfil.interesses.all())
+		instituicoes_apoiadas = None
+
+	return render(request, 'match/perfil.html', {'perfil': perfil, 'parceiros': parceiros, 'instituicoes_apoiadas': instituicoes_apoiadas})
+
 
 @login_required
 def relacionar(request):
 	try:
-		registro = request.user.cnpj
-
-		apoiadores = listApoidaor.object.all()
-		interesses = request.user.interesses
-
-		relacionados = []
-
-		geral = ""
-		for x in interesses:
-			geral += x.tags
-
-		for y in apoiadores:
-			interesse = y.interesses.tags.split(';')
-			for z in interesse:
-				if z in geral:
-					relacionados.append(y)
+		pessoas = Apoiador.object.all()
+		interesses = request.user.entidade.interesses
 
 	except:
-		entidades = Entidade.object.all()
+		pessoas = Entidade.object.all()
+		interesses = request.user.apoiadores.interesses
+	
+	relacionados = []
 
-		interesses = request.user.interesses
+	geral = ""
+	for x in interesses:
+		geral += x.tags
 
-		relacionados = []
-
-		geral = ""
-		for x in interesses:
-			geral += x.tags
-
-		for y in entidades:
-			interesse = y.interesses.tags.split(';')
-			for z in interesse:
-				if z in geral:
-					relacionados.append(y)
-
+	for y in pessoas:
+		interesse = y.interesses.tags.split(';')
+		for z in interesse:
+			if z in geral:
+				relacionados.append(y)
+	
 	return relacionados
 

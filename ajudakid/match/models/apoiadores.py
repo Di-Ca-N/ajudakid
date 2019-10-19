@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User 
 from .enderecos import Endereco
+from .interesses import Interesse
 
 class Apoiador(models.Model):
 	owner = models.OneToOneField('auth.User', on_delete=models.CASCADE)
@@ -16,6 +17,8 @@ class Apoiador(models.Model):
 	registro = models.CharField(max_length=13, help_text='CPF, se pessoa física. CNPJ, se jurídica')
 	endereco = models.OneToOneField(Endereco, on_delete=models.CASCADE)
 	pontos = models.IntegerField(default=0)
+	descricao = models.TextField(default="Um apoiador de projetos para crianças")
+	interesses = models.ManyToManyField(Interesse)
 
 	def __str__(self):
 		return self.nome

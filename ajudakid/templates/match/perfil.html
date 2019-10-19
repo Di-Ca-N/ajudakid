@@ -5,15 +5,33 @@
         <div class="container">
 
             <h2>{{perfil.nome}}</h2>
-            <div style="display: flex flex-direction: row">
-                {% for badge in perfil.badges.all %}
-                    <div style="display: flex flex-direction: column flex:1">
-                        <img src='{{badge.icone.url}}' height="200" width="200"/>
-                        <span style="font-size: 24px; font-weight: bold">{{badge.nome}}:</span>
-                        <span style="font-size: 16px;">{{badge.descricao}}</span>
-                    </div>
+            {{perfil.descricao}}
+            <h3>Interesses</h3>
+            <ul>
+                {% for interesse in perfil.interesses.all %}
+                    <li>{{interesse}}</li>
                 {% endfor %}
-            </div>
+            </ul>
+            {% if perfil.badges %}
+                <h3>Insígnias</h3>
+                <div style="display: flex flex-direction: row">
+                    {% for badge in perfil.badges.all %}
+                        <div style="display: flex flex-direction: column flex:1">
+                            <img src='{{badge.icone.url}}' height="200" width="200"/>
+                            <span style="font-size: 24px; font-weight: bold">{{badge.nome}}:</span>
+                            <span style="font-size: 16px;">{{badge.descricao}}</span>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            {% if instituicoes_apoiadas %}
+                <div>
+                    <h3>Instituições já apoiadas!</h3>
+                    {% for instituicao in instituicoes_apoiadas %}
+                        <a href="{% url 'match:perfil' 'entidade' instituicao.id %}">{{instituicao}}</a>
+                    {% endfor %}
+                </div>
+            {% endif %}
         </div>
     </main>
 {% endblock content %}

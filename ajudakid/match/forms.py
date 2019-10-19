@@ -25,6 +25,7 @@ class ApoiadorForm(forms.ModelForm):
 		widgets = {
 			'nome': forms.TextInput(attrs={'class':''}),
 			'registro': forms.TextInput(attrs={'class':''}),
+			
 		}
 
 class AcaoApoiadorForm(forms.ModelForm):
