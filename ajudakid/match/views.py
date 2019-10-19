@@ -80,7 +80,7 @@ def cadastrar_apoiador(request):
 	return render(request, 'match/cadastrar.html', {'forms': [form, endereco_form]})
 
 def sucesso_cadastro(request):
-	return HttpResponse("Olá")
+	return render(request, 'match/sucesso.html')
 
 
 @user_passes_test(lambda user: hasattr(user, 'entidade'))

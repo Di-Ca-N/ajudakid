@@ -33,9 +33,6 @@ class AcaoApoiadorForm(forms.ModelForm):
 		exclude = ('entidade', )
 		widgets = {
 			'nome' : forms.TextInput(attrs={'class':'form-control'}),
-			'tipo' : forms.ChoiceField(),
-			'valor' : forms.IntegerField(),
-			'apoiador' : forms.ChoiceField(),
 
 		}
 

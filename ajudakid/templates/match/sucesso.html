@@ -1,0 +1,10 @@
+{% extends 'ajudakid/base.html' %}
+
+{% block content %}
+    <div class="portfolio-block projects compact-grid">
+        <div class="container">
+            <h1>Obrigado por ter se cadastrado!</h1>
+            Cadastre-se como <a href="{% url 'match:cadastro_apoiador' %}">Apoiador</a> ou como <a href="{% url 'match:cadastro_entidade'%}">Entidade de Caridade</a>
+        </div>
+    </div>
+{% endblock content %}
