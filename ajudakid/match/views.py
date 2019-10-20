@@ -6,7 +6,7 @@ from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required, user_passes_test
 
 from .forms import EntidadeForm, ApoiadorForm, EnderecoForm, AcaoApoiadorForm, MyUserCreationForm
-from .models import Apoiador, Entidade
+from .models import Apoiador, Entidade, Badge
 
 
 def quem_somos(request):
@@ -14,8 +14,8 @@ def quem_somos(request):
 	return render(request, 'match/quem_somos.html', context)
 
 def entidades(request):
-	context = {}
-	return render(request, 'match/entidades.html', context)
+	entidades = Entidade.objects.all()
+	return render(request, 'match/entidades.html', {'entidades': entidades})
 
 
 def ranking(request):
@@ -71,7 +71,7 @@ def cadastrar_apoiador(request):
 			apoiador.endereco = endereco
 
 			apoiador.save()
-			return redirect('match:perfil')
+			return redirect('match:ranking')
 
 	else:
 		form = ApoiadorForm()
@@ -89,27 +89,36 @@ def cadastrar_acao(request):
 		form = AcaoApoiadorForm(request.POST)
 		if form.is_valid():
 			acao = form.save(commit=False)
-			acao.entidade = request.user
+			acao.entidade = request.user.entidade
+			if acao.valor >= 500 and acao.tipo == "d":
+				acao.apoiador.badges.add(Badge.objects.get(pk=2))
+				acao.apoiador.save()
+			
+			if acao.valor >= 50 and acao.tipo == 'v':
+				acao.apoiador.badges.add(Badge.objects.get(pk=1))
+				acao.apoiador.save()
+
 			acao.save()
-			return redirect('match/perfil')
+			return redirect('match:ranking')
 	else:
 		form = AcaoApoiadorForm()
 	return render(request, 'match/cadastrar.html', {'forms': [form]})
 
 
-@login_required
 def view_perfil(request, tipo, perfil_id):
 	if tipo == 'apoiador':
 		perfil = Apoiador.objects.get(id=perfil_id)
-		parceiros = Entidade.objects.filter(interesses__in=perfil.interesses.all())
 		instituicoes_apoiadas = Entidade.objects.filter(id__in=perfil.acoes.values('entidade'))
+		parceiros = Entidade.objects.filter(interesses__in=perfil.interesses.all(), endereco__estado=perfil.endereco.estado).exclude(id__in=instituicoes_apoiadas.values_list('id', flat=True)).distinct()
+		endereco = None
 
 	else:
 		perfil = Entidade.objects.get(id=perfil_id)
-		parceiros = Apoiador.objects.filter(interesses__in=perfil.interesses.all())
+		parceiros = None
 		instituicoes_apoiadas = None
+		endereco = perfil.endereco
 
-	return render(request, 'match/perfil.html', {'perfil': perfil, 'parceiros': parceiros, 'instituicoes_apoiadas': instituicoes_apoiadas})
+	return render(request, 'match/perfil.html', {'perfil': perfil, 'parceiros': parceiros, 'instituicoes_apoiadas': instituicoes_apoiadas, 'endereco': endereco})
 
 
 @login_required

@@ -3,17 +3,21 @@
 {% block content %}
     <main class="portfolio-block projects compact-grid">
         <div class="container">
-
-            <h2>{{perfil.nome}}</h2>
+            <h1>{{perfil.nome}}</h1>
             {{perfil.descricao}}
-            <h3>Interesses</h3>
+            <br>
+            {%if endereco %}
+            Endereço: {{endereco}}<br>
+            {%endif%}
+            Contato: {{perfil.email}}
+            <h2>Interesses de Apoio</h2>
             <ul>
                 {% for interesse in perfil.interesses.all %}
                     <li>{{interesse}}</li>
                 {% endfor %}
             </ul>
             {% if perfil.badges %}
-                <h3>Insígnias</h3>
+                <h2>Insígnias</h2>
                 <div style="display: flex flex-direction: row">
                     {% for badge in perfil.badges.all %}
                         <div style="display: flex flex-direction: column flex:1">
@@ -24,14 +28,30 @@
                     {% endfor %}
                 </div>
             {% endif %}
-            {% if instituicoes_apoiadas %}
+            {% if user.is_authenticated and perfil.id == user.apoiador.id and parceiros %}
                 <div>
-                    <h3>Instituições já apoiadas!</h3>
-                    {% for instituicao in instituicoes_apoiadas %}
-                        <a href="{% url 'match:perfil' 'entidade' instituicao.id %}">{{instituicao}}</a>
-                    {% endfor %}
+                    <h2>Instituições para contribuir!</h2>
+                    <ul>
+                        {% for ong in parceiros %}
+                            <li><a href="{% url 'match:perfil' 'entidade' ong.id %}">{{ong}}</a></li>
+                        {% endfor %}
+                    </ul>
                 </div>
             {% endif %}
+            {% if instituicoes_apoiadas %}
+                <div>
+                    <h2>Instituições já apoiadas!</h2>
+                    <ul>
+                    {% for instituicao in instituicoes_apoiadas %}
+                        <li><a href="{% url 'match:perfil' 'entidade' instituicao.id %}">{{instituicao}}</a></li>
+                    {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+            <h2>Ações efetuadas</h2>
+            {% for acao in perfil.acoes.all %}
+                {{acao}}
+            {% endfor %}
         </div>
     </main>
 {% endblock content %}

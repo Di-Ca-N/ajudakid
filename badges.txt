@@ -1,0 +1,8 @@
+Badges:
+    doação:
+        valor: 
+        repetições: 
+        frequência: 
+
+    voluntariado:
+        horas:

@@ -19,10 +19,9 @@ class EntidadeForm(forms.ModelForm):
 class EnderecoForm(forms.ModelForm):
 	class Meta:
 		model = Endereco
-		fields = '__all__'
+		exclude = ('pais', )
 		widgets = {
 			'estado': forms.Select(attrs={'class': 'form-control'}),
-			'pais': forms.HiddenInput(),
 			'cidade': forms.TextInput(attrs={'class': 'form-control'}),
 			'bairro': forms.TextInput(attrs={'class': 'form-control'}),
 			'rua': forms.TextInput(attrs={'class': 'form-control'}),
@@ -49,6 +48,9 @@ class AcaoApoiadorForm(forms.ModelForm):
 		exclude = ('entidade', )
 		widgets = {
 			'nome' : forms.TextInput(attrs={'class':'form-control'}),
+			'tipo': forms.Select(attrs={'class':'form-control'}),
+			'valor': forms.NumberInput(attrs={'class':'form-control', 'placeholder': 'Valor, se doação, ou horas, se voluntariado'}),
+			'apoiador': forms.Select(attrs={'class':'form-control'}),
 		}
 
 

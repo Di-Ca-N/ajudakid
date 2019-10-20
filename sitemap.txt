@@ -1,0 +1,30 @@
+Home
+Cadastro 
+ |- Apoiador
+ |   - Nome
+ |   - Senha
+ |   - Confirmacao Senha
+ |   - Endereço
+ |   - Registro
+ |   - Pessoa física ou jurídica
+ |
+ |- Entidade:
+     - Nome
+     - username
+     - email
+     - Endereço 
+     - CNPJ
+     - Senha
+     - Confirmação senha
+
+Quem Somos
+Entidades
+Ranking
+Login
+Entidades:
+    - Cadastro de Benevolências
+    - Editar
+
+Apoiador:
+    - Álbum
+    - Editar (Login required)

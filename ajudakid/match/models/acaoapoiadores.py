@@ -13,6 +13,9 @@ class AcaoApoiador(models.Model):
 	apoiador = models.ForeignKey(Apoiador, on_delete=models.CASCADE, related_name="acoes")
 	entidade = models.ForeignKey(Entidade, on_delete=models.CASCADE, related_name="acoes")
 
+	def __str__(self):
+		return self.nome
+
 	def get_pontuacao(self):
 		if self.tipo == 'd':
 			return self.valor

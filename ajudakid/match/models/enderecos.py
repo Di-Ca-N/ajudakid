@@ -39,3 +39,6 @@ class Endereco(models.Model):
 	rua = models.CharField(max_length=300)
 	numero = models.CharField(max_length=10)
 	complemento = models.CharField(max_length=50, blank=True)
+
+	def __str__(self):
+		return "{} - {}, {} - {}".format(self.cidade, self.estado, self.rua, self.numero)

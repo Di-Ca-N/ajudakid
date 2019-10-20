@@ -25,5 +25,7 @@ urlpatterns = [
  	path('', views.home, name='home'),
     path('admin/', admin.site.urls), 
     path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/logout/', RedirectView.as_view(url="/"), name="logout_home"),
     path('accounts/profile/', RedirectView.as_view(url="/sucesso/"), name="profile"),
+    
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

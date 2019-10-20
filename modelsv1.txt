@@ -1,0 +1,25 @@
+EntidadePerfil:
+    nome:
+    cnpj: 
+
+ApoiadorPerfil:
+    nome:
+    tipo: {Pessoa Física, Pessoa Jurídica}
+    pontos:
+    badges: 
+
+Badges:
+    icone: 
+    nome: 
+    descricao: 
+
+Acao:
+    nome: 
+    tipo: {doacao, voluntariado}
+
+AcaoApoiador:
+    acao: 
+    apoiador: 
+    entidade: 
+    pontuacao: 
+
